@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1877f2">
+<title>FaceWorld — Connect with your world</title>
+<style>
+:root{--blue:#1877f2;--blue2:#0866ff;--bg:#f0f2f5;--card:#fff;--text:#1c1e21;--muted:#65676b;--line:#e4e6eb;--green:#42b72a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;font-weight:650}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #9ec5ff;outline-offset:2px}
+.topbar{height:62px;background:var(--card);position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;padding:0 max(16px,calc((100vw - 1240px)/2));box-shadow:0 1px 4px #0001}
+.brand{font-size:25px;font-weight:850;color:var(--blue);letter-spacing:-1px;white-space:nowrap}.search{background:var(--bg);border:0;border-radius:22px;padding:11px 15px;max-width:300px;width:100%}.top-actions{margin-left:auto;display:flex;gap:8px}.circle{border-radius:50%;width:40px;height:40px;padding:0;background:var(--bg);font-size:18px}
+.layout{max-width:1240px;margin:22px auto;display:grid;grid-template-columns:240px minmax(0,640px) 260px;gap:22px;padding:0 16px}
+.sidebar,.rightbar{position:sticky;top:82px;align-self:start}.navitem{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:9px;font-weight:650;color:#333;text-decoration:none}.navitem:hover,.navitem.active{background:#e3edff;color:var(--blue)}.navicon{font-size:21px;width:27px;text-align:center}.side-profile{display:flex;align-items:center;gap:10px;padding:10px;margin-bottom:8px;font-weight:750}
+.avatar{width:42px;height:42px;flex:0 0 auto;border-radius:50%;background:linear-gradient(135deg,#70c1ff,#8d7aff);display:grid;place-items:center;color:#fff;font-size:18px;font-weight:800;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.avatar.small{width:34px;height:34px;font-size:14px}.avatar.large{width:86px;height:86px;font-size:30px;border:4px solid white}
+.card{background:var(--card);border-radius:12px;box-shadow:0 1px 2px #0000000d;margin-bottom:16px;overflow:hidden}.composer{padding:16px}.compose-row{display:flex;gap:10px;align-items:center}.compose-open{flex:1;text-align:left;background:var(--bg);color:var(--muted);border-radius:24px;font-weight:450;padding:12px 16px}.composer-tools{border-top:1px solid var(--line);margin-top:14px;padding-top:12px;display:flex;justify-content:space-around;gap:6px}.tool{background:white;color:var(--muted);flex:1}.tool:hover{background:var(--bg)}.post{padding:16px}.post-head{display:flex;gap:10px;align-items:center}.post-meta{flex:1;min-width:0}.post-name{font-weight:800}.muted{color:var(--muted);font-size:13px}.more{background:white;color:var(--muted);padding:5px 10px}.post-text{white-space:pre-wrap;overflow-wrap:anywhere;margin:14px 0}.post-image{display:block;width:calc(100% + 32px);margin:0 -16px;max-height:520px;object-fit:cover;background:#f6f7f8}.post-stats{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;padding:10px 0;border-bottom:1px solid var(--line)}.post-actions{display:flex;gap:6px;padding-top:8px}.action{flex:1;background:white;color:var(--muted)}.action:hover{background:var(--bg)}.action.liked{color:var(--blue)}.comments{margin-top:10px}.comment{display:flex;gap:8px;margin:10px 0}.bubble{background:var(--bg);border-radius:14px;padding:8px 12px;min-width:0}.bubble strong{display:block;font-size:13px}.comment-form{display:flex;gap:8px;margin-top:10px}.comment-form input{min-width:0;flex:1;background:var(--bg);border:0;border-radius:22px;padding:10px 14px}.primary{background:var(--blue);color:#fff}.primary:hover{background:var(--blue2)}.secondary{background:var(--bg);color:var(--text)}.section-title{font-size:17px;margin:8px 0 12px}.contact{display:flex;align-items:center;gap:10px;padding:8px 0}.dot{width:9px;height:9px;background:var(--green);border-radius:50%;margin-left:auto}.right-note{font-size:13px;color:var(--muted);line-height:1.5}.empty{text-align:center;padding:32px 16px;color:var(--muted)}.profile-banner{height:150px;background:linear-gradient(120deg,#1877f2,#7c5cff,#55c4dd)}.profile-info{padding:0 18px 18px;display:flex;align-items:end;gap:14px}.profile-info .avatar{margin-top:-44px}.profile-info h2{margin:10px 0 2px}.profile-bio{padding:0 18px 18px;color:var(--muted)}.hidden{display:none!important}.modal-backdrop{position:fixed;inset:0;background:#0008;z-index:30;display:grid;place-items:center;padding:16px}.modal{width:min(520px,100%);background:white;border-radius:14px;padding:20px;box-shadow:0 15px 50px #0003}.modal h2{margin:0 0 16px}.field{display:block;width:100%;border:1px solid var(--line);border-radius:9px;padding:12px;margin:10px 0}.modal textarea{min-height:120px;resize:vertical}.modal-actions{display:flex;justify-content:end;gap:8px;margin-top:14px}.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:#202124;color:white;padding:11px 16px;border-radius:10px;z-index:50;box-shadow:0 4px 16px #0003}.mobile-nav{display:none}.feed-title{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}.feed-title h2{font-size:20px;margin:0}
+@media(max-width:1000px){.layout{grid-template-columns:190px minmax(0,640px)}.rightbar{display:none}}
+@media(max-width:680px){.topbar{height:58px;padding:0 12px;gap:9px}.brand{font-size:22px}.search{max-width:none;min-width:0;padding:10px 12px}.top-actions .circle:first-child{display:none}.layout{display:block;margin:12px auto;padding:0 10px}.sidebar,.rightbar{display:none}.feed-title{padding:0 3px}.card{border-radius:11px}.post,.composer{padding:13px}.post-image{width:calc(100% + 26px);margin:0 -13px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);z-index:20;justify-content:space-around;padding:6px 3px calc(6px + env(safe-area-inset-bottom))}.mobile-nav button{background:white;color:var(--muted);padding:7px 9px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;flex:1}.mobile-nav button span:first-child{font-size:21px}.mobile-nav button.active{color:var(--blue)}body{padding-bottom:75px}.top-actions{gap:4px}.top-actions .circle{width:36px;height:36px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">FaceWorld</div>
+  <input class="search" id="search" placeholder="Search FaceWorld" aria-label="Search users and posts">
+  <div class="top-actions"><button class="circle" id="topHome" title="Home">⌂</button><button class="circle" id="topProfile" title="Profile">☺</button></div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="side-profile"><div class="avatar" id="sideAvatar">L</div><span id="sideName">Leon Leon</span></div>
+    <a class="navitem active" href="#" data-view="home"><span class="navicon">🏠</span>Home feed</a>
+    <a class="navitem" href="#" data-view="friends"><span class="navicon">👥</span>Friends</a>
+    <a class="navitem" href="#" data-view="notifications"><span class="navicon">🔔</span>Notifications</a>
+    <a class="navitem" href="#" data-view="profile"><span class="navicon">👤</span>My profile</a>
+    <a class="navitem" href="#" data-view="about"><span class="navicon">ℹ️</span>About FaceWorld</a>
+  </aside>
+  <main>
+    <div class="feed-title"><h2 id="viewTitle">Home feed</h2><button class="primary" id="newPostTop">＋ Create post</button></div>
+    <section id="profilePanel" class="card hidden"></section>
+    <section id="composer" class="card composer">
+      <div class="compose-row"><div class="avatar" id="composerAvatar">L</div><button class="compose-open" id="openComposer">What's on your mind, Leon?</button></div>
+      <div class="composer-tools"><button class="tool" id="photoButton">🖼️ Photo</button><button class="tool" id="textButton">✍️ Write a post</button></div>
+    </section>
+    <div id="feed"></div>
+  </main>
+  <aside class="rightbar">
+    <div class="card" style="padding:16px">
+      <h3 class="section-title">People you may know</h3>
+      <div class="contact"><div class="avatar small">M</div><div><strong>Maya James</strong><div class="muted">Suggested friend</div></div></div>
+      <button class="secondary" style="width:100%" id="suggestMaya">＋ Add friend</button>
+      <div class="contact"><div class="avatar small">D</div><div><strong>Daniel Cole</strong><div class="muted">Suggested friend</div></div></div>
+      <button class="secondary" style="width:100%" id="suggestDaniel">＋ Add friend</button>
+    </div>
+    <div class="card" style="padding:16px"><h3 class="section-title">Welcome to FaceWorld</h3><p class="right-note">A starter social network demo. Posts and interactions are saved in this browser on this device.</p><p class="right-note">This demo is not yet connected to a shared database or Telegram login.</p></div>
+  </aside>
+</div>
+<nav class="mobile-nav">
+  <button class="active" data-view="home"><span>🏠</span>Home</button><button data-view="friends"><span>👥</span>Friends</button><button id="mobileCreate"><span>➕</span>Create</button><button data-view="notifications"><span>🔔</span>Alerts</button><button data-view="profile"><span>👤</span>Profile</button>
+</nav>
+<div id="modalRoot"></div><div id="toastRoot"></div>
+<script>
+const STORE='faceworld_demo_v1';
+const initial={
+ user:{name:'Leon Leon',bio:'Welcome to my FaceWorld profile! ✨',username:'leonleon'},
+ friends:[{name:'Maya James',status:'suggested'},{name:'Daniel Cole',status:'suggested'},{name:'Ava Williams',status:'friend'}],
+ notifications:[{id:1,text:'Welcome to FaceWorld! Set up your profile and share your first post.',time:Date.now(),read:false}],
+ posts:[
+  {id:101,name:'Ava Williams',avatar:'A',time:Date.now()-3600000,text:'Hello FaceWorld! 🌎 So happy to be here. What is everyone up to today?',image:'',likes:3,liked:false,comments:[{name:'Maya James',text:'Welcome! 💙'}]},
+  {id:102,name:'Leon Leon',avatar:'L',time:Date.now()-7200000,text:'New beginnings, new connections. Welcome to my page!',image:'',likes:1,liked:false,comments:[]}
+ ]
+};
+let state=loadState(),view='home',query='',pendingImage='';
+function loadState(){try{return JSON.parse(localStorage.getItem(STORE))||structuredClone(initial)}catch(e){return JSON.parse(JSON.stringify(initial))}}
+function save(){localStorage.setItem(STORE,JSON.stringify(state))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function initials(n){return (n||'?').split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase()}
+function avatar(name,small=false){return `<div class="avatar ${small?'small':''}">${esc(initials(name))}</div>`}
+function ago(t){let m=Math.max(1,Math.floor((Date.now()-t)/60000));if(m<60)return m+'m';let h=Math.floor(m/60);if(h<24)return h+'h';return Math.floor(h/24)+'d'}
+function toast(s){document.getElementById('toastRoot').innerHTML=`<div class="toast">${esc(s)}</div>`;setTimeout(()=>document.getElementById('toastRoot').innerHTML='',2300)}
+function addNotification(text){state.notifications.unshift({id:Date.now()+Math.random(),text,time:Date.now(),read:false})}
+function render(){
+ document.getElementById('sideName').textContent=state.user.name;
+ document.getElementById('sideAvatar').textContent=initials(state.user.name);
+ document.getElementById('composerAvatar').textContent=initials(state.user.name);
+ document.getElementById('viewTitle').textContent=({home:'Home feed',friends:'Friends',notifications:'Notifications',profile:'My profile',about:'About FaceWorld'})[view]||'Home feed';
+ document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===view));
+ document.getElementById('composer').classList.toggle('hidden',view!=='home');
+ const profile=document.getElementById('profilePanel');profile.classList.toggle('hidden',view!=='profile');
+ if(view==='profile')profile.innerHTML=`<div class="profile-banner"></div><div class="profile-info">${avatar(state.user.name)}<div><h2>${esc(state.user.name)}</h2><div class="muted">@${esc(state.user.username||'member')}</div></div><button class="secondary" style="margin-left:auto" id="editProfile">Edit profile</button></div><div class="profile-bio">${esc(state.user.bio||'No bio yet.')}</div>`;
+ let posts=state.posts.filter(p=>!query||(p.name+' '+p.text).toLowerCase().includes(query.toLowerCase()));
+ const feed=document.getElementById('feed');
+ if(view==='home'||view==='profile'){
+  if(view==='profile')posts=posts.filter(p=>p.name===state.user.name);
+  feed.innerHTML=posts.length?posts.map(postCard).join(''):`<div class="card empty">No posts here yet. Be the first to share something!</div>`;
+ }else if(view==='friends'){
+  feed.innerHTML=`<div class="card" style="padding:16px"><h3 class="section-title">Your people</h3>${state.friends.map((f,i)=>`<div class="contact">${avatar(f.name,true)}<div style="flex:1"><strong>${esc(f.name)}</strong><div class="muted">${f.status==='friend'?'Friend':f.status==='pending'?'Request sent':'Suggested for you'}</div></div>${f.status==='suggested'?`<button class="primary" onclick="addFriend(${i})">Add</button>`:f.status==='pending'?`<button class="secondary" onclick="cancelFriend(${i})">Cancel</button>`:`<span class="muted">✓ Friends</span>`}</div>`).join('')}</div>`;
+ }else if(view==='notifications'){
+  feed.innerHTML=`<div class="card" style="padding:16px"><div class="feed-title"><h3 class="section-title">Your notifications</h3><button class="secondary" onclick="markRead()">Mark all read</button></div>${state.notifications.length?state.notifications.map(n=>`<div class="contact" style="background:${n.read?'white':'#eef5ff'};padding:12px;border-radius:9px">${avatar('FaceWorld',true)}<div style="flex:1"><div>${esc(n.text)}</div><div class="muted">${ago(n.time)} ago</div></div>${n.read?'':'🔵'}</div>`).join(''):'<div class="empty">You are all caught up.</div>'}</div>`;
+ }else if(view==='about'){
+  feed.innerHTML=`<div class="card" style="padding:20px"><h2>Welcome to FaceWorld 🌎</h2><p>A social-network starter demo with profiles, posts, likes, comments, friend suggestions, and notifications.</p><p><strong>Demo notice:</strong> data is saved in this browser only. Other people will not see your posts until a backend and shared database are connected.</p><p>Next step: connect verified Telegram Mini App authentication and a secure server.</p><button class="primary" onclick="setView('home')">Go to home feed</button></div>`;
+ }
+ document.getElementById('topProfile').textContent=initials(state.user.name);
+}
+function postCard(p){
+ return `<article class="card post"><div class="post-head">${avatar(p.name)}<div class="post-meta"><div class="post-name">${esc(p.name)}</div><div class="muted">${ago(p.time)} ago · 🌎</div></div>${p.name===state.user.name?`<button class="more" onclick="deletePost(${p.id})" title="Delete post">•••</button>`:''}</div><div class="post-text">${esc(p.text)}</div>${p.image?`<img class="post-image" src="${p.image}" alt="Post attachment">`:''}<div class="post-stats"><span>👍 ${p.likes||0} likes</span><span>${p.comments.length} comments</span></div><div class="post-actions"><button class="action ${p.liked?'liked':''}" onclick="toggleLike(${p.id})">${p.liked?'👍 Liked':'👍 Like'}</button><button class="action" onclick="focusComment(${p.id})">💬 Comment</button><button class="action" onclick="sharePost(${p.id})">↗ Share</button></div><div class="comments">${p.comments.map(c=>`<div class="comment">${avatar(c.name,true)}<div class="bubble"><strong>${esc(c.name)}</strong>${esc(c.text)}</div></div>`).join('')}<form class="comment-form" onsubmit="submitComment(event,${p.id})">${avatar(state.user.name,true)}<input id="comment-${p.id}" placeholder="Write a comment..." maxlength="500" aria-label="Write a comment"><button class="secondary">Send</button></form></div></article>`;
+}
+function setView(v){view=v;render();window.scrollTo({top:0,behavior:'smooth'})}
+function openPostModal(withPhoto=false){
+ pendingImage='';
+ document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop" id="backdrop"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><h2 id="modalTitle">Create a post</h2><div class="compose-row">${avatar(state.user.name)}<div><strong>${esc(state.user.name)}</strong><div class="muted">Sharing with FaceWorld demo</div></div></div><textarea class="field" id="postText" maxlength="3000" placeholder="What's on your mind?"></textarea><label class="muted" for="imageFile">Add a photo (optional)</label><input class="field" type="file" id="imageFile" accept="image/png,image/jpeg,image/webp"><div id="imageHint" class="muted">Images stay in this browser demo.</div><div class="modal-actions"><button class="secondary" id="cancelPost">Cancel</button><button class="primary" id="publishPost">Post</button></div></section></div>`;
+ document.getElementById('cancelPost').onclick=closeModal;
+ document.getElementById('backdrop').addEventListener('click',e=>{if(e.target.id==='backdrop')closeModal()});
+ document.getElementById('imageFile').onchange=e=>{const f=e.target.files[0];if(!f)return;if(f.size>1200000){toast('Choose an image smaller than 1.2 MB for this demo.');e.target.value='';return}const r=new FileReader();r.onload=()=>{pendingImage=r.result;document.getElementById('imageHint').textContent='Photo ready to attach.'};r.readAsDataURL(f)};
+ document.getElementById('publishPost').onclick=()=>{const text=document.getElementById('postText').value.trim();if(!text&&!pendingImage){toast('Write something or choose a photo first.');return}state.posts.unshift({id:Date.now(),name:state.user.name,avatar:initials(state.user.name),time:Date.now(),text,image:pendingImage,likes:0,liked:false,comments:[]});addNotification('Your post was published in this browser demo.');save();closeModal();setView('home');toast('Post published!')};
+ document.getElementById('postText').focus();
+}
+function closeModal(){document.getElementById('modalRoot').innerHTML='';pendingImage=''}
+function toggleLike(id){const p=state.posts.find(x=>x.id===id);if(!p)return;p.liked=!p.liked;p.likes=Math.max(0,(p.likes||0)+(p.liked?1:-1));if(p.liked&&p.name!==state.user.name)addNotification('You liked a post by '+p.name+'.');save();render()}
+function submitComment(e,id){e.preventDefault();const input=document.getElementById('comment-'+id),text=input.value.trim();if(!text)return;const p=state.posts.find(x=>x.id===id);p.comments.push({name:state.user.name,text});if(p.name!==state.user.name)addNotification('You commented on a post by '+p.name+'.');save();render()}
+function focusComment(id){const x=document.getElementById('comment-'+id);if(x){x.focus();x.scrollIntoView({behavior:'smooth',block:'center'})}}
+function deletePost(id){if(!confirm('Delete this post?'))return;state.posts=state.posts.filter(p=>p.id!==id);save();render();toast('Post deleted.')}
+function sharePost(id){const p=state.posts.find(x=>x.id===id);if(!p)return;const txt=`${p.name} on FaceWorld: ${p.text}`;if(navigator.share)navigator.share({title:'FaceWorld post',text:txt}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast('Post text copied.')).catch(()=>toast(txt));else toast(txt)}
+function addFriend(i){if(state.friends[i]){state.friends[i].status='pending';addNotification('Friend request sent to '+state.friends[i].name+'.');save();render();toast('Friend request sent (demo).')}}
+function cancelFriend(i){if(state.friends[i]){state.friends[i].status='suggested';save();render()}}
+function markRead(){state.notifications.forEach(n=>n.read=true);save();render()}
+function editProfile(){document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop" id="backdrop"><section class="modal"><h2>Edit profile</h2><label class="muted">Display name</label><input class="field" id="editName" maxlength="60" value="${esc(state.user.name)}"><label class="muted">Username</label><input class="field" id="editUsername" maxlength="40" value="${esc(state.user.username)}"><label class="muted">Bio</label><textarea class="field" id="editBio" maxlength="240">${esc(state.user.bio)}</textarea><div class="modal-actions"><button class="secondary" onclick="closeModal()">Cancel</button><button class="primary" id="saveProfile">Save profile</button></div></section></div>`;document.getElementById('saveProfile').onclick=()=>{const name=document.getElementById('editName').value.trim();if(!name){toast('Name cannot be empty.');return}const old=state.user.name;state.user.name=name;state.user.username=document.getElementById('editUsername').value.trim().replace(/^@/,'')||'member';state.user.bio=document.getElementById('editBio').value.trim();state.posts.forEach(p=>{if(p.name===old)p.name=name});save();closeModal();render();toast('Profile updated.')}}
+document.addEventListener('click',e=>{const el=e.target.closest('[data-view]');if(el){e.preventDefault();setView(el.dataset.view)}});
+document.getElementById('openComposer').onclick=()=>openPostModal();
+document.getElementById('newPostTop').onclick=()=>openPostModal();
+document.getElementById('photoButton').onclick=()=>openPostModal(true);
+document.getElementById('textButton').onclick=()=>openPostModal();
+document.getElementById('mobileCreate').onclick=()=>openPostModal();
+document.getElementById('topHome').onclick=()=>setView('home');
+document.getElementById('topProfile').onclick=()=>setView('profile');
+document.getElementById('suggestMaya').onclick=()=>{const i=state.friends.findIndex(f=>f.name==='Maya James');addFriend(i)};
+document.getElementById('suggestDaniel').onclick=()=>{const i=state.friends.findIndex(f=>f.name==='Daniel Cole');addFriend(i)};
+document.getElementById('search').addEventListener('input',e=>{query=e.target.value;render()});
+document.addEventListener('click',e=>{if(e.target.id==='editProfile')editProfile()});
+render();
+</script>
+</body>
+</html>
